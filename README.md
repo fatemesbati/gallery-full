@@ -1,2 +1,2 @@
-# gallery-full
-gallery app with play 2 framework and angular
+# gallery app with play 2 framework and angular
+
