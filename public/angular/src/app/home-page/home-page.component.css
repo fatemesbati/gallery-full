@@ -1,0 +1,108 @@
+* {
+  background-color: rgb(245, 247, 235);
+
+  padding: 20px;
+  margin: 0;
+  /*position: fixe;*/
+
+}
+
+mat-grid-tile {
+  margin: 0;
+  padding: 0;
+  background: lightblue;
+
+
+}
+
+.all {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+
+.banner {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: 11%;
+  /* background-attachment: fixed; */
+  background-position: center;
+  text-align: center;
+  color: #FFF;
+}
+
+.banner:before {
+  -moz-transition: opacity 3s ease;
+  -webkit-transition: opacity 3s ease;
+  -ms-transition: opacity 3s ease;
+  transition: opacity 3s ease;
+  -moz-transition-delay: 0.25s;
+  -webkit-transition-delay: 0.25s;
+  -ms-transition-delay: 0.25s;
+  transition-delay: 0.25s;
+  content: '';
+  display: block;
+  background-color: #000;
+  height: 100%;
+  left: 0;
+  opacity: 0.55;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.mat-card * {
+  padding: 0;
+
+}
+
+.example-card {
+  max-width: 500px;
+  /* margin-top: -20px; */
+  position: relative;
+  opacity: 1;
+  z-index: 3;
+  background-color: #fff;
+  box-shadow: 5px 10px 18px #b1b0b0;
+}
+
+.example-card *{
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+  height: 300px;
+  width: 300px;
+}
+
+.profile {
+  margin-top: -100px;
+  max-width: 500px;
+}
+
+.about {
+  max-width: 600px;
+  margin-right: 20px;
+  background-color: #fff;
+  box-shadow: 5px 10px 18px #acacac;
+}
+
+.about * {
+  background-color: #fff;
+}
+
+.mat-card-avatar {
+  margin-top: -200px;
+  border: 8px solid #FFF;
+}
+
+

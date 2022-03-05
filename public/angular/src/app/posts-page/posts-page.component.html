@@ -1,0 +1,82 @@
+<router-outlet></router-outlet>
+<html>
+	<head>
+		<title>Snapshot by TEMPLATED</title>
+		<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	</head>
+	<body>
+
+		<div class="page-wrap">
+
+			<!-- Nav -->
+				<nav id="nav">
+					<ul>
+                        <li><a href=" " class="active">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon" color="A400">home</mat-icon>
+                        </a></li>
+					</ul>
+				</nav>
+
+			<!-- Main -->
+				<section id="main">
+
+					<!-- Banner -->
+						<section id="banner">
+							<div class="inner">
+								<h1>Hey, Wellcome</h1>
+								<!-- <p>A fully responsive gallery template by <a href="https://templated.co">TEMPLATED</a></p> -->
+								<p>See my posts, Hope you injoy!</p>
+								<ul class="actions">
+									<li><a class="button alt scrolly big" (click)="onClickScroll('galleries')">Continue</a></li>
+								</ul>
+							</div>
+						</section>
+
+					<!-- Gallery -->
+						<section id='galleries'>
+
+							<!-- Photo Galleries -->
+								<div class="gallery">
+
+									<header class="special">
+										<h2>What's New</h2>
+                    <span>{{postRequestResponse}}</span>
+									</header>
+
+
+									<div class="content" >
+										<div class="media" *ngFor='let post of posts; let i = index;' >
+											<div>
+												<a routerLink="/Comments/{{ photoes[i]['id'] }}" routerLinkActive="active"><img src="{{ photoes[i]['url'] }}" alt="" title="{{ photoes[i][author] }}" /></a>
+												<p style="display: flex; justify-content: space-between;">
+													{{ posts[i]['title'] }}
+											  	<button class="delete" (click)="deletePosts(post);">
+												  	<mat-icon aria-hidden="false">cancel_presentation</mat-icon>
+											  	</button>
+												</p>
+											</div>
+										</div>
+									</div>
+
+
+									<footer>
+										<a href=" " class="active" class="button big">Make Your Own Gallery</a>
+									</footer>
+
+								</div>
+
+						</section>
+				</section>
+
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
