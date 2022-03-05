@@ -1,0 +1,81 @@
+section {
+    background: #000000; /* fallback for old browsers */
+    background: -webkit-linear-gradient( #ffffff, #353535); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient( #ffffff, #92634450, #144f809a);
+}
+
+.example-card {
+    width: 400px;
+    height: 720px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    min-width: 150px;
+    max-width: 500px;
+  }
+  
+  .example-header-image {
+    height: 55px;
+    width: 55px;
+    background-size: cover;
+    padding-left: 10px;
+  }
+
+.flex-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding-left: 170px;
+    padding-right: 170px;
+}
+
+.back {
+    margin-left: 720px;
+    margin-bottom: 10px;
+    display: flex;
+    display: inline-flex;
+    align-items: flex-end;
+    text-decoration: none;
+    color: #000000;
+}
+
+* {
+    padding-bottom: 10px;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+mat-card-content {
+    max-height: 550px;
+}
+
+.scrollbar
+{
+	margin-left: 1px;
+	float: left;
+	overflow-y: scroll;
+	margin-bottom: 1px;
+}
+
+
+#style-8::-webkit-scrollbar-track
+{
+	background-color: #ffffffd5;
+}
+
+#style-8::-webkit-scrollbar
+{
+	width: 7px;
+}
+
+#style-8::-webkit-scrollbar-thumb
+{
+    margin-top: 20px;
+	background-color: #716a9773;	
+}
