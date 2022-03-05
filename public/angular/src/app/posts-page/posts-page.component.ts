@@ -15,6 +15,7 @@ export class PostsPageComponent implements OnInit {
   count = 0;
   numbers = 10;
   deleteIndex = -1;
+  postRequestResponse: string;
   // toggle = true;
 
 
@@ -24,26 +25,12 @@ export class PostsPageComponent implements OnInit {
   ) { }
 
 
-  onClickScroll(elementId: string): void {
-    this.viewportScroller.scrollToAnchor(elementId);
-  }
-
-  counter(i: number) {
-    if(i != this.deleteIndex)
-      return new Array(i);
-  }
-
-
-
-
-
   ngOnInit(): void {
-
     this.apiService.getPost().subscribe((data)=>{
         // this.posts = data;
         for (let index = 0; index < Object.keys(data).length; index++) {
           if(data[index]['userId'] == 1)
-          this.posts[this.count] = data[index]; 
+          this.posts[this.count] = data[index];
           this.count++;
         }
     });
@@ -51,12 +38,11 @@ export class PostsPageComponent implements OnInit {
 
     this.apiService.getPhoto().subscribe((data)=>{
       for (let index = 0; index < this.count; index++) {
-        this.photoes[index] = data[index]; 
+        this.photoes[index] = data[index];
       }
     });
-
   }
-  
+
 
   deletePosts(post){
     this.apiService.deletePost(post.id).subscribe(() => {
@@ -71,6 +57,22 @@ export class PostsPageComponent implements OnInit {
     });
   }
 
+  onClickScroll(elementId: string): void {
+    this.viewportScroller.scrollToAnchor(elementId);
+    this.postData();
+  }
+
+  counter(i: number) {
+    if(i != this.deleteIndex)
+      return new Array(i);
+  }
+
+  public postData(): void {
+    this.apiService.sendData().subscribe((data: any) => {
+      console.log(JSON.stringify(data))
+      this.postRequestResponse = data.content;
+    });
+  }
 
 }
 

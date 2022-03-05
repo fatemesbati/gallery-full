@@ -1,64 +1,61 @@
 <div class="main">
 
-	<mat-grid-list cols="1" rowHeight="4:1" gutterSize="20px">
-	  <mat-grid-tile rowspan="1" class="banner"></mat-grid-tile>
-	</mat-grid-list>
-  
-	<div class="all">
-	  <mat-card class="example-card profile" >
-		<mat-card-header style="margin-bottom: 20px;">
-		  <div mat-card-avatar class="example-header-image"></div>
-		  <mat-card-title>{{ user['name'] }}</mat-card-title>
-		  <mat-card-subtitle>@{{ user['username'] }}</mat-card-subtitle>
-		</mat-card-header>
-		<mat-divider></mat-divider>
+  <mat-grid-list cols="1" rowHeight="4:1" gutterSize="20px">
+    <mat-grid-tile rowspan="1" class="banner"></mat-grid-tile>
+  </mat-grid-list>
 
-		<mat-card-actions>
-		<mat-card-content style="margin-top: 5%;">
-			<h2>Email:</h2>
-			<span>{{ user['email'] }}</span>
-		</mat-card-content>
-		</mat-card-actions>
-		<mat-divider></mat-divider>
+  <div class="all">
+    <mat-card class="example-card profile" >
+      <mat-card-header style="margin-bottom: 20px;">
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{ user['name'] }}</mat-card-title>
+        <mat-card-subtitle>@{{ user['username'] }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider></mat-divider>
 
-		<mat-card-actions>
-			<mat-card-content style="margin-top: 5%;">
-				<h2>Phone:</h2>
-				<span>{{ user['phone'] }}</span>
-			</mat-card-content>
-		</mat-card-actions>
-		<mat-divider></mat-divider>
+      <mat-card-actions>
+        <mat-card-content style="margin-top: 5%;">
+          <h2>Email:</h2>
+          <span>{{ user['email'] }}</span>
+        </mat-card-content>
+      </mat-card-actions>
+      <mat-divider></mat-divider>
 
-		<mat-card-actions>
-			<mat-card-content style="margin-top: 5%;">
-				<h2>Company:</h2>
-				<span>{{ user['company']['catchPhrase'] }}</span>
-			</mat-card-content>
-		</mat-card-actions>
+      <mat-card-actions>
+        <mat-card-content style="margin-top: 5%;">
+          <h2>Phone:</h2>
+          <span>{{ user['phone'] }}</span>
+        </mat-card-content>
+      </mat-card-actions>
+      <mat-divider></mat-divider>
 
-	  </mat-card>
-	
-  
-	  <mat-card class="about">
-		  <mat-card-content>
-			<h2>about:</h2>
-			<p>
-			  Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure nostrum aut totam, necessitatibus harum sit incidunt officiis voluptate maxime corporis? Saepe eaque itaque quia quasi eligendi iusto facilis aut tenetur.
-			</p>
-		  </mat-card-content>
-		  <mat-card-actions>
-			<a href="Posts" routerLinkActive="active" class="back">
-				<button mat-stroked-button color="primary" style="float: right; border: none;">See Posts
-					<span class="material-icons">
+      <mat-card-actions>
+        <mat-card-content style="margin-top: 5%;">
+          <h2>Company:</h2>
+          <span>{{ user['company']['catchPhrase'] }}</span>
+        </mat-card-content>
+      </mat-card-actions>
+
+    </mat-card>
+
+
+    <mat-card class="about">
+      <mat-card-content>
+        <h2>about:</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure nostrum aut totam, necessitatibus harum sit incidunt officiis voluptate maxime corporis? Saepe eaque itaque quia quasi eligendi iusto facilis aut tenetur.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a href="Posts" routerLinkActive="active" class="back">
+          <button mat-stroked-button color="primary" style="float: right; border: none;">See Posts
+            <span class="material-icons">
 						arrow_right_alt
 						</span>
-				</button>
-			  </a>
-		  </mat-card-actions>
-		</mat-card>
-	
-	</div>
+          </button>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+
   </div>
-
-
-  
+</div>

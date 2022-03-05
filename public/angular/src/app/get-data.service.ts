@@ -15,7 +15,9 @@ export class GetDataService {
   urlUser = 'https://jsonplaceholder.typicode.com';
   urlPost = 'https://jsonplaceholder.typicode.com';
   urlPhoto = 'https://jsonplaceholder.typicode.com/photos';
-  
+
+  dataPostTestUrl = '/api/postTest';
+
   constructor(private httpClient: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {
@@ -44,7 +46,7 @@ export class GetDataService {
     );
   }
 
-  
+
   ///////////////////////////
   // Posts
 
@@ -95,5 +97,13 @@ export class GetDataService {
   public deletePhotoes(idPhotoes){
     return this.httpClient.delete(this.urlUser + "/photos/" + idPhotoes);
   }
- 
+
+  ////////////////////////////
+  // test play back
+  /**
+   * Makes a http post request to send some data to backend & get response.
+   */
+  public sendData(): Observable<any> {
+    return this.httpClient.post(this.dataPostTestUrl, {});
+  }
 }
