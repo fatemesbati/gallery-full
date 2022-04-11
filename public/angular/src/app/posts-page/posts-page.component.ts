@@ -70,7 +70,7 @@ export class PostsPageComponent implements OnInit {
   public postData(): void {
     this.apiService.sendData().subscribe((data: any) => {
       console.log(JSON.stringify(data))
-      this.postRequestResponse = data.content;
+      this.postRequestResponse = data[0].name;
     });
   }
 

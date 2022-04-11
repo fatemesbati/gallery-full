@@ -16,7 +16,7 @@ export class GetDataService {
   urlPost = 'https://jsonplaceholder.typicode.com';
   urlPhoto = 'https://jsonplaceholder.typicode.com/photos';
 
-  dataPostTestUrl = '/api/postTest';
+  // dataPostTestUrl = '/api/postTest';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -104,6 +104,6 @@ export class GetDataService {
    * Makes a http post request to send some data to backend & get response.
    */
   public sendData(): Observable<any> {
-    return this.httpClient.post(this.dataPostTestUrl, {});
+    return this.httpClient.get("/persons");
   }
 }

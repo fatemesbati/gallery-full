@@ -14,7 +14,6 @@ import play.api.mvc._
 @Singleton
 class FrontendController @Inject()(assets: Assets, errorHandler: HttpErrorHandler, config: Configuration, cc: ControllerComponents) extends AbstractController(cc) {
 
-  System.out.println("amadammm")
   def index: Action[AnyContent] = {
     assets.at("angular/src/index.html")
   }
