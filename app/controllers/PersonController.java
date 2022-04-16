@@ -3,6 +3,7 @@ package controllers;
 import models.Person;
 import models.PersonRepository;
 import play.data.FormFactory;
+import play.libs.Json;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -32,16 +33,16 @@ public class PersonController extends Controller {
         this.ec = ec;
     }
 
-    public Result index(final Http.Request request) {
-        return ok(views.html.index.render(request));
+    public CompletionStage<Result> addPerson(final Http.Request request) {
+//        JsonNode json = request.body().asJson();
+//        Person person = Json.fromJson(json, Person.class);
+        Person person = formFactory.form(Person.class).bindFromRequest(request).get();
+        return personRepository
+                .add(person)
+                .thenApplyAsync(persons ->
+                        { return created(Json.toJson(persons));}, ec.current());
     }
 
-//    public CompletionStage<Result> addPerson(final Http.Request request) {
-//        Person person = formFactory.form(Person.class).bindFromRequest(request).get();
-//        return personRepository
-//                .add(person);
-//                .thenApplyAsync(p -> redirect(controllers.routes.PersonController.index()), ec.current());
-//    }
 
     public CompletionStage<Result> getPersons() {
         return personRepository

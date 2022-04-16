@@ -1,6 +1,5 @@
 import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
 import { GetDataService } from '../get-data.service';
 
 @Component({
@@ -59,7 +58,7 @@ export class PostsPageComponent implements OnInit {
 
   onClickScroll(elementId: string): void {
     this.viewportScroller.scrollToAnchor(elementId);
-    this.postData();
+    this.getData();
   }
 
   counter(i: number) {
@@ -67,11 +66,21 @@ export class PostsPageComponent implements OnInit {
       return new Array(i);
   }
 
-  public postData(): void {
-    this.apiService.sendData().subscribe((data: any) => {
-      console.log(JSON.stringify(data))
-      this.postRequestResponse = data[0].name;
+  public getData(): void {
+    this.apiService.getData().subscribe((data: any) => {
+      this.postRequestResponse = data;
     });
+  }
+
+  public sendData(name: string): void {
+    this.apiService.sendData(name).subscribe(
+      data => {
+          console.log("Hi")
+          console.log(JSON.stringify(data))
+      }),
+      error => {
+        console.log(error)
+      }
   }
 
 }
