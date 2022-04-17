@@ -1,6 +1,8 @@
 import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { GetDataService } from '../get-data.service';
+import {HttpClient} from "@angular/common/http";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-posts-page',
@@ -21,6 +23,7 @@ export class PostsPageComponent implements OnInit {
   constructor(
     private viewportScroller: ViewportScroller,
     private apiService: GetDataService,
+    private httpClient: HttpClient
   ) { }
 
 
@@ -33,7 +36,6 @@ export class PostsPageComponent implements OnInit {
           this.count++;
         }
     });
-
 
     this.apiService.getPhoto().subscribe((data)=>{
       for (let index = 0; index < this.count; index++) {
@@ -74,13 +76,10 @@ export class PostsPageComponent implements OnInit {
 
   public sendData(name: string): void {
     this.apiService.sendData(name).subscribe(
-      data => {
-          console.log("Hi")
-          console.log(JSON.stringify(data))
-      }),
+      data => {},
       error => {
         console.log(error)
-      }
+      })
   }
 
 }

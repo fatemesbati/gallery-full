@@ -3,14 +3,13 @@
 # ~~~~
 
 # Home page
-#GET     /                           controllers.PersonController.index(req: Request)
 POST    /person                     controllers.PersonController.addPerson(req: Request)
 GET     /persons                    controllers.PersonController.getPersons()
+POST    /upload                     controllers.PersonController.upload(request:Request)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 
-# Test post request
-POST    /api/postTest               controllers.HomeController.postTest()
+# angular
 GET     /                           controllers.FrontendController.index()
