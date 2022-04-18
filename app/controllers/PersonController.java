@@ -1,5 +1,7 @@
 package controllers;
 
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import models.Person;
 import models.PersonRepository;
 import play.data.FormFactory;
@@ -14,6 +16,10 @@ import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
@@ -29,6 +35,7 @@ public class PersonController extends Controller {
     private final FormFactory formFactory;
     private final PersonRepository personRepository;
     private final HttpExecutionContext ec;
+    private final Config config = ConfigFactory.load();
 
     @Inject
     public PersonController(FormFactory formFactory, PersonRepository personRepository, HttpExecutionContext ec) {
@@ -52,7 +59,7 @@ public class PersonController extends Controller {
     }
 
     @BodyParser.Of(MyMultipartFormDataBodyParser.class)
-    public Result upload(Http.Request request) throws IOException {
+    public CompletionStage<Result> upload(Http.Request request) throws IOException {
 //        final Http.MultipartFormData<File> formData = request.body().asMultipartFormData();
 //        final Http.MultipartFormData.FilePart<File> filePart = formData.getFile("name");
 //        final File file = filePart.getRef();
@@ -68,14 +75,43 @@ public class PersonController extends Controller {
             fileName = uploadedFile.getFilename();
         }
 
-        final long data = operateOnTempFile(file);
-        return ok("file " + fileName + "size = " + data + "");
+        String tmpPath = config.getString("image_file_tmp");
+        Path tmpDir = Paths.get(tmpPath);
+
+        if (Files.notExists(tmpDir)) {
+            Files.createDirectory(tmpDir);
+        }
+        Files.move(Paths.get(file.getAbsolutePath()), Paths.get(tmpPath + fileName),
+                StandardCopyOption.REPLACE_EXISTING);
+
+        Person person = new Person(fileName);
+        return personRepository
+                .add(person)
+                .thenApplyAsync(persons ->
+                        created(Json.toJson(persons)), ec.current());
+
+//        return ok();
+
+//        final long data = operateOnTempFile(file);
+//        return ok("file " + fileName + "size = " + data + "");
     }
 
     private long operateOnTempFile(File file) throws IOException {
         final long size = Files.size(file.toPath());
         Files.deleteIfExists(file.toPath());
         return size;
+    }
+
+    public Result serveAvatar(String fileName) {
+        return GetFileStream(config.getString("image_file_tmp") + fileName);
+    }
+
+    public static Result GetFileStream(String address) {
+        File file = new File(address);
+        if (file.exists())
+            return ok(file);
+        else
+            return notFound("not found");
     }
 
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter } from '@angular/core';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions } from 'ngx-uploader';
+import {GetDataService} from "../get-data.service";
 
 @Component({
   selector: 'upload-image',
@@ -13,11 +14,15 @@ export class UploadImageComponent {
   humanizeBytes: Function;
   dragOver: boolean;
 
-  constructor() {
+  postRequestResponse: any = null;
+  image: string;
+
+  constructor(private apiService: GetDataService) {
     this.options = { concurrency: 1, maxUploads: 3, maxFileSize: 1000000 };
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
+    this.getData();
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -69,6 +74,7 @@ export class UploadImageComponent {
       fieldName: 'upload'
     };
 
+    this.getData();
     this.uploadInput.emit(event);
   }
 
@@ -82,5 +88,16 @@ export class UploadImageComponent {
 
   removeAllFiles(): void {
     this.uploadInput.emit({ type: 'removeAll' });
+  }
+
+  public getData(): void {
+    this.apiService.getData().subscribe((data: any) => {
+      this.postRequestResponse = data;
+    });
+  }
+
+  hi(image: string) {
+    this.image = '/external/' + image;
+    return this.image;
   }
 }

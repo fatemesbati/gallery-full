@@ -1,13 +1,13 @@
-<div
-  class="drop-container"
-  ngFileDrop
-  [options]="options"
-  (uploadOutput)="onUploadOutput($event)"
-  [uploadInput]="uploadInput"
-  [ngClass]="{ 'is-drop-over': dragOver }"
->
-  <h1>Drag &amp; Drop</h1>
-</div>
+<!--<div-->
+<!--  class="drop-container"-->
+<!--  ngFileDrop-->
+<!--  [options]="options"-->
+<!--  (uploadOutput)="onUploadOutput($event)"-->
+<!--  [uploadInput]="uploadInput"-->
+<!--  [ngClass]="{ 'is-drop-over': dragOver }"-->
+<!--&gt;-->
+<!--  <h1>Drag &amp; Drop</h1>-->
+<!--</div>-->
 
 <label class="upload-button">
   <input
@@ -18,9 +18,13 @@
     [uploadInput]="uploadInput"
     multiple
   />
-  or choose file(s)
+<!--  or choose file(s)-->
 </label>
 
 <button type="button" class="start-upload-btn" (click)="startUpload()">
   Start Upload
 </button>
+<div *ngIf="postRequestResponse">
+  <img *ngFor="let p of postRequestResponse" src="{{hi(p.image)}}"/>
+</div>
+

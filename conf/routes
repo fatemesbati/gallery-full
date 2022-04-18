@@ -13,3 +13,4 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # angular
 GET     /                           controllers.FrontendController.index()
+GET     /external/*fileName         controllers.PersonController.serveAvatar(fileName: String)

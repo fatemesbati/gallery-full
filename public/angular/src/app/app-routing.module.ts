@@ -5,8 +5,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  {path: 'Home', component: HomePageComponent},
-  {path: '', redirectTo: '/Home', pathMatch: 'full' },
+  // {path: 'Home', component: HomePageComponent},
+  {path: '', redirectTo: '/Posts', pathMatch: 'full' },
   {path: 'Posts', component: PostsPageComponent},
   {path: 'Comments/:id', component: CommentsPageComponent},
   // {path: 'Users/1'},
