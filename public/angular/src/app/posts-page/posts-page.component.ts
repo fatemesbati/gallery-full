@@ -60,7 +60,6 @@ export class PostsPageComponent implements OnInit {
 
   onClickScroll(elementId: string): void {
     this.viewportScroller.scrollToAnchor(elementId);
-    this.getData();
   }
 
   counter(i: number) {
@@ -68,15 +67,11 @@ export class PostsPageComponent implements OnInit {
       return new Array(i);
   }
 
-  public getData(): void {
-    this.apiService.getData().subscribe((data: any) => {
-      this.postRequestResponse = data;
-    });
-  }
-
   public sendData(name: string): void {
     this.apiService.sendData(name).subscribe(
-      data => {},
+      data => {
+
+      },
       error => {
         console.log(error)
       })

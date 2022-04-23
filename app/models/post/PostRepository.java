@@ -1,4 +1,4 @@
-package models;
+package models.post;
 
 import com.google.inject.ImplementedBy;
 
@@ -8,10 +8,10 @@ import java.util.stream.Stream;
 /**
  * This interface provides a non-blocking API for possibly blocking operations.
  */
-@ImplementedBy(JPAPersonRepository.class)
-public interface PersonRepository {
+@ImplementedBy(JPAPostRepository.class)
+public interface PostRepository {
 
-    CompletionStage<Person> add(Person person);
+    CompletionStage<Post> add(Post person);
 
-    CompletionStage<Stream<Person>> list();
+    CompletionStage<Stream<Post>> list();
 }

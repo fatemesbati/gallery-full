@@ -2,8 +2,8 @@ package controllers;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import models.Person;
-import models.PersonRepository;
+import models.post.Post;
+import models.post.PostRepository;
 import play.data.FormFactory;
 import play.libs.Json;
 import play.libs.concurrent.HttpExecutionContext;
@@ -19,7 +19,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.UUID;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
@@ -30,39 +29,36 @@ import static play.libs.Json.toJson;
  * {@link HttpExecutionContext} to provide access to the
  * {@link Http.Context} methods like {@code request()} and {@code flash()}.
  */
-public class PersonController extends Controller {
+public class PostController extends Controller {
 
     private final FormFactory formFactory;
-    private final PersonRepository personRepository;
+    private final PostRepository postRepository;
     private final HttpExecutionContext ec;
     private final Config config = ConfigFactory.load();
 
     @Inject
-    public PersonController(FormFactory formFactory, PersonRepository personRepository, HttpExecutionContext ec) {
+    public PostController(FormFactory formFactory, PostRepository postRepository, HttpExecutionContext ec) {
         this.formFactory = formFactory;
-        this.personRepository = personRepository;
+        this.postRepository = postRepository;
         this.ec = ec;
     }
 
     public CompletionStage<Result> addPerson(final Http.Request request) {
-        Person person = formFactory.form(Person.class).bindFromRequest(request).get();
-        return personRepository
+        Post person = formFactory.form(Post.class).bindFromRequest(request).get();
+        return postRepository
                 .add(person)
                 .thenApplyAsync(persons ->
                         { return created(Json.toJson(persons));}, ec.current());
     }
 
     public CompletionStage<Result> getPersons() {
-        return personRepository
+        return postRepository
                 .list()
                 .thenApplyAsync(personStream -> ok(toJson(personStream.collect(Collectors.toList()))), ec.current());
     }
 
     @BodyParser.Of(MyMultipartFormDataBodyParser.class)
-    public CompletionStage<Result> upload(Http.Request request) throws IOException {
-//        final Http.MultipartFormData<File> formData = request.body().asMultipartFormData();
-//        final Http.MultipartFormData.FilePart<File> filePart = formData.getFile("name");
-//        final File file = filePart.getRef();
+    public CompletionStage<Result> uploadPost(Http.Request request) throws IOException {
 
         Http.MultipartFormData<File> body;
         Http.MultipartFormData.FilePart<File> uploadedFile;
@@ -84,22 +80,11 @@ public class PersonController extends Controller {
         Files.move(Paths.get(file.getAbsolutePath()), Paths.get(tmpPath + fileName),
                 StandardCopyOption.REPLACE_EXISTING);
 
-        Person person = new Person(fileName);
-        return personRepository
+        Post person = new Post(fileName);
+        return postRepository
                 .add(person)
-                .thenApplyAsync(persons ->
-                        created(Json.toJson(persons)), ec.current());
-
-//        return ok();
-
-//        final long data = operateOnTempFile(file);
-//        return ok("file " + fileName + "size = " + data + "");
-    }
-
-    private long operateOnTempFile(File file) throws IOException {
-        final long size = Files.size(file.toPath());
-        Files.deleteIfExists(file.toPath());
-        return size;
+                .thenApplyAsync(posts ->
+                        created(Json.toJson(posts)), ec.current());
     }
 
     public Result serveAvatar(String fileName) {

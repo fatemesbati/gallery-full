@@ -6,7 +6,8 @@
     <persistence-unit name="defaultPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <non-jta-data-source>DefaultDS</non-jta-data-source>
-        <class>models.Person</class>
+        <class>models.post.Post</class>
+        <class>models.comment.Comment</class>
 
         <properties>
             <!--Hibernate properties-->

@@ -1,5 +1,6 @@
-package models;
+package models.post;
 
+import models.DatabaseExecutionContext;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
@@ -14,24 +15,24 @@ import static java.util.concurrent.CompletableFuture.supplyAsync;
 /**
  * Provide JPA operations running inside of a thread pool sized to the connection pool
  */
-public class JPAPersonRepository implements PersonRepository {
+public class JPAPostRepository implements PostRepository {
 
     private final JPAApi jpaApi;
     private final DatabaseExecutionContext executionContext;
 
     @Inject
-    public JPAPersonRepository(JPAApi jpaApi, DatabaseExecutionContext executionContext) {
+    public JPAPostRepository(JPAApi jpaApi, DatabaseExecutionContext executionContext) {
         this.jpaApi = jpaApi;
         this.executionContext = executionContext;
     }
 
     @Override
-    public CompletionStage<Person> add(Person person) {
+    public CompletionStage<Post> add(Post person) {
         return supplyAsync(() -> wrap(em -> insert(em, person)), executionContext);
     }
 
     @Override
-    public CompletionStage<Stream<Person>> list() {
+    public CompletionStage<Stream<Post>> list() {
         return supplyAsync(() -> wrap(em -> list(em)), executionContext);
     }
 
@@ -39,13 +40,13 @@ public class JPAPersonRepository implements PersonRepository {
         return jpaApi.withTransaction(function);
     }
 
-    private Person insert(EntityManager em, Person person) {
+    private Post insert(EntityManager em, Post person) {
         em.persist(person);
         return person;
     }
 
-    private Stream<Person> list(EntityManager em) {
-        List<Person> persons = em.createQuery("select p from Person p", Person.class).getResultList();
+    private Stream<Post> list(EntityManager em) {
+        List<Post> persons = em.createQuery("select p from Post p", Post.class).getResultList();
         return persons.stream();
     }
 }
