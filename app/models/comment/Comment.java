@@ -1,19 +1,26 @@
 package models.comment;
 
+import models.post.Post;
+
 import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long id;
-
     private String content;
 
-    public String getContent() {
-        return content;
+    @ManyToOne
+    private Post post;
+
+    public Comment(String content) {
+        this.content = content;
     }
+
+    public Comment() {}
 
     public Long getId() {
         return id;
@@ -26,4 +33,21 @@ public class Comment {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+//    public void addComment(Comment comment) {
+//        getPost().getComments().add(comment);
+//    }
 }
+

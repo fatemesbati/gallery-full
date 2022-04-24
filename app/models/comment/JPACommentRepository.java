@@ -1,10 +1,15 @@
 package models.comment;
 
+import com.google.common.collect.Lists;
 import models.DatabaseExecutionContext;
+import models.post.Post;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
@@ -29,8 +34,8 @@ public class JPACommentRepository implements CommentRepository {
     }
 
     @Override
-    public CompletionStage<Stream<Comment>> list() {
-        return supplyAsync(() -> wrap(em -> list(em)), executionContext);
+    public CompletionStage<Stream<Comment>> list(Post post) {
+        return supplyAsync(() -> wrap(em -> list(em, post)), executionContext);
     }
 
     @Override
@@ -48,8 +53,11 @@ public class JPACommentRepository implements CommentRepository {
         return comment;
     }
 
-    private Stream<Comment> list(EntityManager em) {
-        List<Comment> comments = em.createQuery("select p from Comment p", Comment.class).getResultList();
+    private Stream<Comment> list(EntityManager em, Post post) {
+        String queryString = "SELECT a FROM Comment a WHERE a.post = :post";
+        TypedQuery<Comment> query =  em.createQuery(queryString, Comment.class);
+        query.setParameter("post", post);
+        List<Comment> comments = query.getResultList();
         return comments.stream();
     }
 

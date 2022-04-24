@@ -27,8 +27,8 @@ public class JPAPostRepository implements PostRepository {
     }
 
     @Override
-    public CompletionStage<Post> add(Post person) {
-        return supplyAsync(() -> wrap(em -> insert(em, person)), executionContext);
+    public CompletionStage<Post> add(Post post) {
+        return supplyAsync(() -> wrap(em -> insert(em, post)), executionContext);
     }
 
     @Override
@@ -40,13 +40,13 @@ public class JPAPostRepository implements PostRepository {
         return jpaApi.withTransaction(function);
     }
 
-    private Post insert(EntityManager em, Post person) {
-        em.persist(person);
-        return person;
+    private Post insert(EntityManager em, Post post) {
+        em.persist(post);
+        return post;
     }
 
     private Stream<Post> list(EntityManager em) {
-        List<Post> persons = em.createQuery("select p from Post p", Post.class).getResultList();
-        return persons.stream();
+        List<Post> posts = em.createQuery("select p from Post p", Post.class).getResultList();
+        return posts.stream();
     }
 }

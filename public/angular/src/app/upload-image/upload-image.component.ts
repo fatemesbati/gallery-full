@@ -16,13 +16,14 @@ export class UploadImageComponent {
 
   postRequestResponse: any = null;
   image: string;
+  comments: string[];
 
   constructor(private apiService: GetDataService) {
     this.options = { concurrency: 1, maxUploads: 3, maxFileSize: 1000000 };
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
-    this.getData();
+    this.getPosts();
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -69,13 +70,13 @@ export class UploadImageComponent {
   startUpload(): void {
     const event: UploadInput = {
       type: 'uploadAll',
-      url: '/upload',
+      url: '/upload/post',
       method: 'POST',
       fieldName: 'upload'
     };
 
-    this.getData();
     this.uploadInput.emit(event);
+    this.getPosts();
   }
 
   cancelUpload(id: string): void {
@@ -90,8 +91,8 @@ export class UploadImageComponent {
     this.uploadInput.emit({ type: 'removeAll' });
   }
 
-  public getData(): void {
-    this.apiService.getData().subscribe((data: any) => {
+  public getPosts(): void {
+    this.apiService.getPosts().subscribe((data: any) => {
       this.postRequestResponse = data;
     });
   }
@@ -99,5 +100,17 @@ export class UploadImageComponent {
   hi(image: string) {
     this.image = '/external/' + image;
     return this.image;
+  }
+
+  sendComment(comment: string, post: any) {
+    this.apiService.sendComment(comment, post).subscribe((data: any) => {
+      this.getComments(post);
+    });
+  }
+
+  getComments(post: any) {
+    this.apiService.getComments(post).subscribe((data: any) => {
+      this.comments = data;
+    });
   }
 }

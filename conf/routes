@@ -3,9 +3,10 @@
 # ~~~~
 
 # Home page
-POST    /upload/post                     controllers.PostController.uploadPost(request:Request)
-POST    /post/comment                    controllers.CommentController
-GET     /post/comments                   controllers.CommentController
+POST    /upload/post                controllers.PostController.uploadPost(request:Request)
+GET     /posts                      controllers.PostController.getPosts()
+POST    /comment                    controllers.CommentController.addComment(request:Request)
+POST    /comments                   controllers.CommentController.list(request:Request)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
@@ -13,4 +14,4 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # angular
 GET     /                           controllers.FrontendController.index()
-GET     /external/*fileName         controllers.PostController.serveAvatar(fileName: String)
+GET     /external/*fileName         controllers.PostController.servePost(fileName: String)

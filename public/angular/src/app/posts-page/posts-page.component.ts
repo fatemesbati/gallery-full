@@ -66,17 +66,6 @@ export class PostsPageComponent implements OnInit {
     if(i != this.deleteIndex)
       return new Array(i);
   }
-
-  public sendData(name: string): void {
-    this.apiService.sendData(name).subscribe(
-      data => {
-
-      },
-      error => {
-        console.log(error)
-      })
-  }
-
 }
 
 

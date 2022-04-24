@@ -2,27 +2,20 @@ package models.post;
 
 import models.comment.Comment;
 import javax.persistence.*;
-import java.util.List;
+import java.util.*;
+
 
 @Entity
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long id;
-
     private String image;
-    private String title;
-    private String caption;
-
-    @OneToMany
-    private List<Comment> comments;
-
+    public Post() {
+    }
     public Post(String image) {
         this.image = image;
-    }
-
-    public Post() {
     }
 
     public Long getId() {
@@ -33,22 +26,6 @@ public class Post {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCaption() {
-        return caption;
-    }
-
-    public void setCaption(String caption) {
-        this.caption = caption;
-    }
-
     public String getImage() {
         return image;
     }
@@ -57,11 +34,4 @@ public class Post {
         this.image = image;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 }

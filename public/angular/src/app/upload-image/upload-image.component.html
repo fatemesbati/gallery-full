@@ -25,6 +25,22 @@
   Start Upload
 </button>
 <div *ngIf="postRequestResponse">
-  <img *ngFor="let p of postRequestResponse" src="{{hi(p.image)}}"/>
+  <div *ngFor="let p of postRequestResponse">
+    <img src="{{hi(p.image)}}"/>
+    <div>
+      <span>comment</span>
+      <input type="text" #comment>
+      <button type="button" class="start-upload-btn" (click)="sendComment(comment.value, p)">
+        send
+      </button>
+      <button type="button" class="start-upload-btn" (click)="getComments(p)">
+        get comments
+      </button>
+    </div>
+    <div *ngIf="comments">
+      <p *ngFor="let c of comments">{{c.content}}</p>
+    </div>
+  </div>
 </div>
+
 

@@ -103,11 +103,15 @@ export class GetDataService {
   /**
    * Makes a http post request to send some data to backend & get response.
    */
-  public getData(): Observable<any> {
-    return this.httpClient.get("/persons");
+  public getPosts(): Observable<any> {
+    return this.httpClient.get("/posts");
   }
 
-  public sendData(name: string): Observable<any> {
-    return this.httpClient.post("/person", {name: name});
+  public sendComment(content: string, post: any): Observable<any> {
+    return this.httpClient.post("/comment", {content: content, post: post});
+  }
+
+  public getComments(post: any) {
+    return this.httpClient.post("/comments", {post: post});
   }
 }

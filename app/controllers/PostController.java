@@ -2,6 +2,7 @@ package controllers;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import models.comment.CommentRepository;
 import models.post.Post;
 import models.post.PostRepository;
 import play.data.FormFactory;
@@ -43,18 +44,10 @@ public class PostController extends Controller {
         this.ec = ec;
     }
 
-    public CompletionStage<Result> addPerson(final Http.Request request) {
-        Post person = formFactory.form(Post.class).bindFromRequest(request).get();
-        return postRepository
-                .add(person)
-                .thenApplyAsync(persons ->
-                        { return created(Json.toJson(persons));}, ec.current());
-    }
-
-    public CompletionStage<Result> getPersons() {
+    public CompletionStage<Result> getPosts() {
         return postRepository
                 .list()
-                .thenApplyAsync(personStream -> ok(toJson(personStream.collect(Collectors.toList()))), ec.current());
+                .thenApplyAsync(posts -> ok(Json.toJson(posts)), ec.current());
     }
 
     @BodyParser.Of(MyMultipartFormDataBodyParser.class)
@@ -80,14 +73,14 @@ public class PostController extends Controller {
         Files.move(Paths.get(file.getAbsolutePath()), Paths.get(tmpPath + fileName),
                 StandardCopyOption.REPLACE_EXISTING);
 
-        Post person = new Post(fileName);
+        Post newPost = new Post(fileName);
         return postRepository
-                .add(person)
-                .thenApplyAsync(posts ->
-                        created(Json.toJson(posts)), ec.current());
+                .add(newPost)
+                .thenApplyAsync(post ->
+                        created(Json.toJson(post)), ec.current());
     }
 
-    public Result serveAvatar(String fileName) {
+    public Result servePost(String fileName) {
         return GetFileStream(config.getString("image_file_tmp") + fileName);
     }
 
