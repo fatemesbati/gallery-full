@@ -1,6 +1,7 @@
 package models.post;
 
 import com.google.inject.ImplementedBy;
+import models.comment.Comment;
 
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
@@ -11,7 +12,6 @@ import java.util.stream.Stream;
 @ImplementedBy(JPAPostRepository.class)
 public interface PostRepository {
 
-    CompletionStage<Post> add(Post person);
-
+    CompletionStage<Post> add(Post post);
     CompletionStage<Stream<Post>> list();
 }

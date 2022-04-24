@@ -113,4 +113,11 @@ export class UploadImageComponent {
       this.comments = data;
     });
   }
+
+  deleteComment(comment: any, post: any) {
+    console.log("HI: " + JSON.stringify(comment));
+    this.apiService.deleteComment(comment).subscribe((data: any) => {
+      this.getComments(post);
+    });
+  }
 }

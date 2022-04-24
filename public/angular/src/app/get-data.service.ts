@@ -81,9 +81,9 @@ export class GetDataService {
     return this.httpClient.post(this.urlPost + '/comments', JSON.stringify(newComment));
   }
 
-  public deleteComment(idComment){
-    return this.httpClient.delete(this.urlPost + '/comments/' + idComment);
-  }
+  // public deleteComment(idComment){
+  //   return this.httpClient.delete(this.urlPost + '/comments/' + idComment);
+  // }
 
 
 
@@ -113,5 +113,9 @@ export class GetDataService {
 
   public getComments(post: any) {
     return this.httpClient.post("/comments", {post: post});
+  }
+
+  public deleteComment(comment: any) {
+    return this.httpClient.post("/comment/delete", {id: comment.id, content: comment.content, post: comment.post});
   }
 }

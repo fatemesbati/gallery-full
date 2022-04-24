@@ -38,7 +38,12 @@
       </button>
     </div>
     <div *ngIf="comments">
-      <p *ngFor="let c of comments">{{c.content}}</p>
+      <p *ngFor="let c of comments">
+        {{c.content}}
+        <button type="button" class="start-upload-btn" (click)="deleteComment(c, p)">
+          delete
+        </button>
+      </p>
     </div>
   </div>
 </div>

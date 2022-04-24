@@ -7,6 +7,7 @@ POST    /upload/post                controllers.PostController.uploadPost(reques
 GET     /posts                      controllers.PostController.getPosts()
 POST    /comment                    controllers.CommentController.addComment(request:Request)
 POST    /comments                   controllers.CommentController.list(request:Request)
+POST    /comment/delete             controllers.CommentController.delete(request:Request)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

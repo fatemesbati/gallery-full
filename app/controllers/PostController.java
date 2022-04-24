@@ -70,6 +70,8 @@ public class PostController extends Controller {
         if (Files.notExists(tmpDir)) {
             Files.createDirectory(tmpDir);
         }
+
+        // todo: change this - cannot upload file with complicated name
         Files.move(Paths.get(file.getAbsolutePath()), Paths.get(tmpPath + fileName),
                 StandardCopyOption.REPLACE_EXISTING);
 

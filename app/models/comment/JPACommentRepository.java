@@ -39,7 +39,7 @@ public class JPACommentRepository implements CommentRepository {
     }
 
     @Override
-    public CompletionStage delete(Comment comment) {
+    public CompletionStage<Comment> delete(Comment comment) {
         return supplyAsync(() -> wrap(em -> delete(em, comment)), executionContext);
     }
 
@@ -62,7 +62,8 @@ public class JPACommentRepository implements CommentRepository {
     }
 
     private Comment delete(EntityManager em, Comment comment) {
-        em.remove(em);
-        return comment;
+        Long id = comment.id;
+        em.remove(em.find(Comment.class, id));
+        return null;
     }
 }

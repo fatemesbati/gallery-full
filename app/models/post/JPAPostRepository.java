@@ -1,6 +1,7 @@
 package models.post;
 
 import models.DatabaseExecutionContext;
+import models.comment.Comment;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;

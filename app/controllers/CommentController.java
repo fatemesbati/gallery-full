@@ -49,4 +49,10 @@ public class CommentController extends Controller {
                 .list(newComment.getPost())
                 .thenApplyAsync(posts -> ok(Json.toJson(posts)), ec.current());
     }
+
+    public Result delete(final Http.Request request) {
+        Comment newComment = formFactory.form(Comment.class).bindFromRequest(request).get();
+        commentRepository.delete(newComment);
+        return ok();
+    }
 }
