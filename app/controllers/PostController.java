@@ -94,4 +94,9 @@ public class PostController extends Controller {
             return notFound("not found");
     }
 
+    public Result delete(String id) {
+        postRepository.delete(Long.parseLong(id));
+        return ok();
+    }
+
 }

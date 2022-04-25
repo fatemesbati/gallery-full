@@ -46,21 +46,20 @@
 									</header>
 
 
-<!--									<div class="content" >-->
-<!--										<div class="media" *ngFor='let post of posts; let i = index;' >-->
-<!--											<div>-->
-<!--												<a routerLink="/Comments/{{ photoes[i]['id'] }}" routerLinkActive="active"><img src="{{ photoes[i]['url'] }}" alt="" title="{{ photoes[i][author] }}" /></a>-->
+									<div class="content" *ngIf="postRequestResponse">
+										<div class="media" *ngFor='let post of postRequestResponse; let i = index;' >
+											<div>
+												<a routerLink="/Comments/{{post.id}}/{{post.image}}" routerLinkActive="active">
+                          <img src="{{hi(post.image)}}" alt=""/>
+                        </a>
 <!--												<p style="display: flex; justify-content: space-between;">-->
-<!--													{{ posts[i]['title'] }}-->
-<!--											  	<button class="delete" (click)="deletePosts(post);">-->
+<!--											  	<button class="delete" (click)="deletePost(post.id);">-->
 <!--												  	<mat-icon aria-hidden="false">cancel_presentation</mat-icon>-->
 <!--											  	</button>-->
 <!--												</p>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-
-
+											</div>
+										</div>
+									</div>
 <!--									<footer>-->
 <!--										<a href=" " class="active" class="button big">Make Your Own Gallery</a>-->
 <!--									</footer>-->

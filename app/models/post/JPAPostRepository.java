@@ -37,6 +37,11 @@ public class JPAPostRepository implements PostRepository {
         return supplyAsync(() -> wrap(em -> list(em)), executionContext);
     }
 
+    @Override
+    public CompletionStage<Post> delete(Long id) {
+        return supplyAsync(() -> wrap(em -> delete(em, id)), executionContext);
+    }
+
     private <T> T wrap(Function<EntityManager, T> function) {
         return jpaApi.withTransaction(function);
     }
@@ -49,5 +54,11 @@ public class JPAPostRepository implements PostRepository {
     private Stream<Post> list(EntityManager em) {
         List<Post> posts = em.createQuery("select p from Post p", Post.class).getResultList();
         return posts.stream();
+    }
+
+    // todo
+    private Post delete(EntityManager em, Long id) {
+        em.remove(em.find(Post.class, id));
+        return null;
     }
 }

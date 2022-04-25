@@ -1,6 +1,7 @@
 import { Component, EventEmitter } from '@angular/core';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes, UploaderOptions } from 'ngx-uploader';
 import {GetDataService} from "../get-data.service";
+import {PostsPageComponent} from "../posts-page/posts-page.component";
 
 @Component({
   selector: 'upload-image',
@@ -14,16 +15,11 @@ export class UploadImageComponent {
   humanizeBytes: Function;
   dragOver: boolean;
 
-  postRequestResponse: any = null;
-  image: string;
-  comments: string[];
-
-  constructor(private apiService: GetDataService) {
+  constructor(private apiService: GetDataService, private postsPage: PostsPageComponent) {
     this.options = { concurrency: 1, maxUploads: 3, maxFileSize: 1000000 };
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
-    this.getPosts();
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -76,7 +72,7 @@ export class UploadImageComponent {
     };
 
     this.uploadInput.emit(event);
-    this.getPosts();
+    this.postsPage.getPosts();
   }
 
   cancelUpload(id: string): void {
@@ -89,35 +85,5 @@ export class UploadImageComponent {
 
   removeAllFiles(): void {
     this.uploadInput.emit({ type: 'removeAll' });
-  }
-
-  public getPosts(): void {
-    this.apiService.getPosts().subscribe((data: any) => {
-      this.postRequestResponse = data;
-    });
-  }
-
-  hi(image: string) {
-    this.image = '/external/' + image;
-    return this.image;
-  }
-
-  sendComment(comment: string, post: any) {
-    this.apiService.sendComment(comment, post).subscribe((data: any) => {
-      this.getComments(post);
-    });
-  }
-
-  getComments(post: any) {
-    this.apiService.getComments(post).subscribe((data: any) => {
-      this.comments = data;
-    });
-  }
-
-  deleteComment(comment: any, post: any) {
-    console.log("HI: " + JSON.stringify(comment));
-    this.apiService.deleteComment(comment).subscribe((data: any) => {
-      this.getComments(post);
-    });
   }
 }

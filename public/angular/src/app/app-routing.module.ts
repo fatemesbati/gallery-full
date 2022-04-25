@@ -8,7 +8,7 @@ const routes: Routes = [
   // {path: 'Home', component: HomePageComponent},
   {path: '', redirectTo: '/Posts', pathMatch: 'full' },
   {path: 'Posts', component: PostsPageComponent},
-  {path: 'Comments/:id', component: CommentsPageComponent},
+  {path: 'Comments/:id/:url', component: CommentsPageComponent},
   // {path: 'Users/1'},
   // {path: 'Users/1/Posts'}
 ];

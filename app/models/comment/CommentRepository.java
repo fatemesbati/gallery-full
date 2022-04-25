@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 public interface CommentRepository {
 
     CompletionStage<Comment> add(Comment comment);
-    CompletionStage<Stream<Comment>> list(Post post);
-    CompletionStage<Comment> delete(Comment comment);
+    CompletionStage<Stream<Comment>> list(Long id);
+    CompletionStage<Comment> delete(Long id);
 
 }

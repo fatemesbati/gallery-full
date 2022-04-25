@@ -3,11 +3,12 @@
 # ~~~~
 
 # Home page
-POST    /upload/post                controllers.PostController.uploadPost(request:Request)
-GET     /posts                      controllers.PostController.getPosts()
-POST    /comment                    controllers.CommentController.addComment(request:Request)
-POST    /comments                   controllers.CommentController.list(request:Request)
-POST    /comment/delete             controllers.CommentController.delete(request:Request)
+POST        /upload/post                controllers.PostController.uploadPost(request:Request)
+GET         /posts                      controllers.PostController.getPosts()
+POST        /comment                    controllers.CommentController.addComment(request:Request)
+GET         /post/:id/comments          controllers.CommentController.list(id:String)
+DELETE      /comment/delete/:id         controllers.CommentController.delete(id:String)
+DELETE      /post/:id                   controllers.PostController.delete(id:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

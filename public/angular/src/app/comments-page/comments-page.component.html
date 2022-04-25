@@ -1,5 +1,5 @@
 <body>
-    <section>
+    <section style="height: inherit;">
         <div class="flex-container">
             <div style="display: inline-block;">
                 <mat-card class="example-card">
@@ -16,20 +16,20 @@
                             <mat-icon>warning</mat-icon>
                             <span>Report</span>
                           </button>
-                        </mat-menu>                        
+                        </mat-menu>
                       </div>
                     <mat-card-header style="margin-bottom: 20px;">
-                      <div mat-card-avatar class="example-header-image" [ngStyle]="{'background-image': 'url(' + 'https://material.angular.io/assets/img/examples/shiba1.jpg' + ')'}"></div>
+                      <div mat-card-avatar class="example-header-image" style="background-color: burlywood;"></div>
                       <!-- + photo  + -->
                       <mat-card-title style="margin: 0;">Shiba Inu</mat-card-title>
-                      <mat-card-subtitle style="margin: 0; padding: 0; font-size: small;">{{ post.title}}</mat-card-subtitle>
+<!--                      <mat-card-subtitle style="margin: 0; padding: 0; font-size: small;">{{ post.title}}</mat-card-subtitle>-->
                     </mat-card-header>
-                    <img mat-card-image src="{{ photo }}" alt="Photo of a Shiba Inu">
-                    <mat-card-content>
-                      <p>
-                        {{ post['body']}}
-                      </p>
-                    </mat-card-content>
+                    <img mat-card-image src="{{hi(postUrl)}}" alt="Photo of a Shiba Inu">
+<!--                    <mat-card-content>-->
+<!--                      <p>-->
+<!--                        {{ post['body']}}-->
+<!--                      </p>-->
+<!--                    </mat-card-content>-->
                     <mat-card-actions>
                       <!-- problem -->
                       <button mat-button style="font-size: small; font-weight: 600;">LIKE</button>
@@ -43,19 +43,19 @@
                 <mat-card class="example-card" style="display:flex ; flex-direction: column; justify-content: space-between;">
                   <div>
                     <mat-card-header>
-                      <mat-card-title style="margin-top: 3px;">Comments</mat-card-title>          
+                      <mat-card-title style="margin-top: 3px;">Comments</mat-card-title>
                     </mat-card-header>
                     <mat-card-content id="style-8" class="scrollbar">
-                      <div *ngFor="let comment of comments"  style="display: flex;  justify-content: space-between;">
+                      <div *ngFor="let comment of comments"  style="display: flex; justify-content: space-between; width: 390px;">
                         <div style="display: flex;">
                           <span class="material-icons" style="margin-top: 10px;">
                             account_circle
                           </span>
                             <p style="margin: 10px;">
-                              {{comment.body}}
+                              {{comment.content}}
                             </p>
                         </div>
-                          <button mat-icon-button (click)="deleteComments(comment)">
+                          <button mat-icon-button (click)="deleteComment(comment.id)">
                             <mat-icon style="transform: scale(.5); color: rgba(44, 44, 44, 0.555);">clear</mat-icon>
                           </button>
                             <!-- <mat-divider></mat-divider> -->
@@ -63,15 +63,15 @@
                     </mat-card-content>
                   </div>
                   <div style="display: flex; align-items: baseline;">
-                    <form class="example-form" style="margin-bottom: -30px; display: inline;">
+<!--                    <form class="example-form" style="margin-bottom: -30px; display: inline;">-->
                       <mat-form-field class="example-full-width">
                         <mat-label>Leave a comment</mat-label>
                         <textarea matInput style="resize: none;" #newComment></textarea>
                       </mat-form-field>
-                    </form>
+<!--                    </form>-->
                     <div>
                       <button mat-mini-fab color="primary" style="transform: rotate(-30deg) scale(0.8);">
-                        <mat-icon style="transform: scale(0.8);" (click)="addComments(newComment.value); clearContents(newComment);">send</mat-icon>
+                        <mat-icon style="transform: scale(0.8);" (click)="sendComment(newComment.value); clearContents(newComment);">send</mat-icon>
                         <!-- <mat-icon style="transform: scale(0.8);">send</mat-icon> -->
                       </button>
                     </div>

@@ -14,4 +14,5 @@ public interface PostRepository {
 
     CompletionStage<Post> add(Post post);
     CompletionStage<Stream<Post>> list();
+    CompletionStage<Post> delete(Long id);
 }

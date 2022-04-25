@@ -16,8 +16,12 @@ export class PostsPageComponent implements OnInit {
   count = 0;
   numbers = 10;
   deleteIndex = -1;
-  postRequestResponse: string;
+  // postRequestResponse: string;
   // toggle = true;
+
+  postRequestResponse: any = null;
+  image: string;
+  comments: string[];
 
 
   constructor(
@@ -28,20 +32,22 @@ export class PostsPageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.apiService.getPost().subscribe((data)=>{
-        // this.posts = data;
-        for (let index = 0; index < Object.keys(data).length; index++) {
-          if(data[index]['userId'] == 1)
-          this.posts[this.count] = data[index];
-          this.count++;
-        }
-    });
+    // this.apiService.getPost().subscribe((data)=>{
+    //     // this.posts = data;
+    //     for (let index = 0; index < Object.keys(data).length; index++) {
+    //       if(data[index]['userId'] == 1)
+    //       this.posts[this.count] = data[index];
+    //       this.count++;
+    //     }
+    // });
 
-    this.apiService.getPhoto().subscribe((data)=>{
-      for (let index = 0; index < this.count; index++) {
-        this.photoes[index] = data[index];
-      }
-    });
+    // this.apiService.getPhoto().subscribe((data)=>{
+    //   for (let index = 0; index < this.count; index++) {
+    //     this.photoes[index] = data[index];
+    //   }
+    // });
+
+    this.getPosts();
   }
 
 
@@ -65,6 +71,25 @@ export class PostsPageComponent implements OnInit {
   counter(i: number) {
     if(i != this.deleteIndex)
       return new Array(i);
+  }
+
+  /////////////////////////////////////////////////////
+
+  public getPosts(): void {
+    this.apiService.getPosts().subscribe((data: any) => {
+      this.postRequestResponse = data;
+    });
+  }
+
+  hi(image: string) {
+    this.image = '/external/' + image;
+    return this.image;
+  }
+
+  deletePost(id: string) {
+    this.apiService.deletePost(id).subscribe((data: any) => {
+      this.getPosts();
+    });
   }
 }
 

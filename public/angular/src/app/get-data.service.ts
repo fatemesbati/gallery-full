@@ -61,9 +61,9 @@ export class GetDataService {
     return this.httpClient.post(this.urlUser + "/posts", newPost);
   }
 
-  public deletePost(idPost){
-    return this.httpClient.delete(this.urlUser + "/posts/" + idPost);
-  }
+  // public deletePost(idPost){
+  //   return this.httpClient.delete(this.urlUser + "/posts/" + idPost);
+  // }
 
 
 
@@ -111,11 +111,15 @@ export class GetDataService {
     return this.httpClient.post("/comment", {content: content, post: post});
   }
 
-  public getComments(post: any) {
-    return this.httpClient.post("/comments", {post: post});
+  public getComments(id: string) {
+    return this.httpClient.get("/post/" + id + "/comments");
   }
 
-  public deleteComment(comment: any) {
-    return this.httpClient.post("/comment/delete", {id: comment.id, content: comment.content, post: comment.post});
+  public deleteComment(id: string) {
+    return this.httpClient.delete("/comment/delete/" + id);
+  }
+
+  public deletePost(id: string) {
+    return this.httpClient.delete("/post/" + id);
   }
 }
